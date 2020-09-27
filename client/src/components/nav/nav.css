@@ -1,0 +1,16 @@
+.nav-links {
+  width: 50%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  list-style-type: none;
+  color: #ffffff;
+}
+.links {
+  padding: 7px;
+  text-decoration: none;
+}
+.links:hover {
+  color: rgb(12, 194, 146);
+  text-decoration: none;
+}
