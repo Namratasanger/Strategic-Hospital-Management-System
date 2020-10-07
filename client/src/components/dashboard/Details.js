@@ -30,55 +30,62 @@ class Acc extends Component {
     const { list } = this.props.patients;
     return (
       <div className={classes.root}>
-        {!this.props.patients.loading ? console.log("lists : ", list) : ""}
-
-        {Object.keys(list).map(key => {
-          console.log(list[key].disease.toString().split(","));
-          Object.keys(list[key].disease.toString().split(",")).map(index => {
-            console.log(list[key].disease.toString().split(",")[index]);
-          });
-          return (
-            <Accordion style={{ marginBottom: "10px" }}>
-              <AccordionSummary
-                expandIcon={<ExpandMoreIcon />}
-                aria-label='Expand'
-                aria-controls='additional-actions1-content'
-                id='additional-actions1-header'
-                style={{
-                  backgroundColor: "rgb(12,194,146)",
-                  color: "white",
-                }}
-              >
-                <Typography className={classes.heading}>
-                  {list[key].name}
-                </Typography>
-              </AccordionSummary>
-              <AccordionDetails>
-                <Typography color='textSecondary'>
-                  <p>Disease :{list[key].disease}</p>
-                  <p>Since : {list[key].from}</p>
-                  <p>Description : {list[key].description}</p>
-                  <button
-                    style={{
-                      width: "350px",
-                      borderRadius: "3px",
-                      letterSpacing: "1.5px",
-                      marginLeft: "10rem",
-                      right: 0,
-                      // marginTop: "1rem",
-                      backgroundColor: "",
-                    }}
-                    type='submit'
-                    className=' btn btn-large waves-effect waves-light hoverable accent-3'
-                    onClick={() => alert(list[key].name)}
-                  >
-                    Write Prescription
-                  </button>
-                </Typography>
-              </AccordionDetails>
-            </Accordion>
-          );
-        })}
+        {this.props.patients.list !== null
+          ? !this.props.patients.loading
+            ? console.log("lists : ", list)
+            : ""
+          : ""}
+        {list.data ? (
+          <p>{list.data}</p>
+        ) : (
+          Object.keys(list).map(key => {
+            console.log(list[key].disease.toString().split(","));
+            Object.keys(list[key].disease.toString().split(",")).map(index => {
+              console.log(list[key].disease.toString().split(",")[index]);
+            });
+            return (
+              <Accordion style={{ marginBottom: "10px" }}>
+                <AccordionSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  aria-label='Expand'
+                  aria-controls='additional-actions1-content'
+                  id='additional-actions1-header'
+                  style={{
+                    backgroundColor: "rgb(12,194,146)",
+                    color: "white",
+                  }}
+                >
+                  <Typography className={classes.heading}>
+                    {list[key].name}
+                  </Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                  <Typography color='textSecondary'>
+                    <p>Disease :{list[key].disease}</p>
+                    <p>Since : {list[key].from}</p>
+                    <p>Description : {list[key].description}</p>
+                    <button
+                      style={{
+                        width: "350px",
+                        borderRadius: "3px",
+                        letterSpacing: "1.5px",
+                        marginLeft: "10rem",
+                        right: 0,
+                        // marginTop: "1rem",
+                        backgroundColor: "",
+                      }}
+                      type='submit'
+                      className=' btn btn-large waves-effect waves-light hoverable accent-3'
+                      onClick={() => alert(list[key].name)}
+                    >
+                      Write Prescription
+                    </button>
+                  </Typography>
+                </AccordionDetails>
+              </Accordion>
+            );
+          })
+        )}
       </div>
     );
   }
