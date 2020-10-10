@@ -62,7 +62,7 @@ class Landing extends Component {
                     borderRadius: "3px",
                     letterSpacing: "1.5px",
                     marginTop: "1rem",
-                    backgroundColor: "",
+                    backgroundColor: "rgba(38,166,154)",
                   }}
                   type='submit'
                   className='btn btn-large waves-effect waves-light hoverable accent-3'

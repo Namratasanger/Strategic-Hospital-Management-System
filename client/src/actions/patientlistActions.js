@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { GET_PATIENT, PATIENT_ERRORS } from "./types";
+import { GET_PATIENT, PATIENT_ERRORS,GET_A_PATIENT } from "./types";
 
 //get all patients data
 export const getPatientLists = () => async dispatch => {
@@ -20,3 +20,40 @@ export const getPatientLists = () => async dispatch => {
     });
   }
 };
+
+//get the patient data
+export const getAPatient = (id) => async dispatch => {
+  try {
+    const res = await axios.get("/api/patient", {
+      params: {
+        id: id
+      }
+
+    });
+    dispatch({
+      type: GET_A_PATIENT,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: PATIENT_ERRORS,
+      payload: { msg: err.response, status: err.response.status },
+    });
+  }
+};
+
+//free the patient data
+export const freePatientData = () => async dispatch => {
+  try {
+    dispatch({
+      type: GET_A_PATIENT,
+      payload: "",
+    });
+  } catch (err) {
+    dispatch({
+      type: PATIENT_ERRORS,
+      payload: { msg: err.response, status: err.response.status },
+    });
+  }
+};
+

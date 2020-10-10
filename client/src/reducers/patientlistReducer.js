@@ -1,9 +1,10 @@
-import { GET_PATIENT, PATIENT_ERRORS } from "../actions/types";
+import { GET_PATIENT,GET_A_PATIENT ,PATIENT_ERRORS } from "../actions/types";
 
 const initialState = {
   list: {},
   diseases: [],
   error: {},
+  data:[],
   loading: true,
 };
 
@@ -16,6 +17,12 @@ export default function (state = initialState, action) {
         list: payload,
         loading: false,
       };
+    case GET_A_PATIENT:
+      return{
+        ...state,
+        data:payload,
+        loading:false
+      }
     case PATIENT_ERRORS:
       return {
         ...state,

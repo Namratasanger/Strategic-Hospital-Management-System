@@ -77,4 +77,46 @@ router.post("/all", (req, res) => {
   }
 });
 
+// @route   GET api/patient/id
+// @desc    List the patient by id
+// @access Public
+router.get("", async (req, res) => {
+  try {
+    console.log(req.query)
+    console.log(req.params.id)
+    const patient = await Patient.findById({ _id : req.query.id});
+    if(!patient){
+      return res.status(400).json({msg:"Patient not found."})
+    }
+    res.json(patient)
+    console.log(patient)
+  } catch (err) {
+    console.error(err.message);
+    if(err.kind == "ObjectId"){
+      return res.status(400).json({msg:"Patient not found."})
+    }
+    res.status(500).send("Server error");
+  }
+});
+
+// @route   DELETE api/patient/id
+// @desc    Delete the patient by id
+// @access Public
+router.delete("/:id",async(req,res)=>{
+  try {
+    //Remove the patient
+
+    const patient = await Patient.findById({_id:req.params.id});
+    if(!patient){
+      return res.status(400).json({msg:"Patient not found."})
+    }
+    await Patient.findOneAndRemove({_id:req.params.id});
+    res.json({
+      msg:"Patient removed"
+    })
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
+})
 module.exports = router;

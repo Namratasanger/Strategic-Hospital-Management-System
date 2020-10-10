@@ -5,7 +5,8 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
-import PatientList from "./Details";
+
+import Cards from "./Cards";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -17,6 +18,7 @@ function TabPanel(props) {
       id={`vertical-tabpanel-${index}`}
       aria-labelledby={`vertical-tab-${index}`}
       {...other}
+      style={{ display: "flex", flexDirection: "row", position: "absolute" }}
     >
       {value === index && (
         <Box p={3}>
@@ -72,7 +74,7 @@ export default function VerticalTabs() {
         <Tab label='Patient List' {...a11yProps(0)} />
       </Tabs>
       <TabPanel value={value} index={0}>
-        <PatientList />
+        <Cards />
       </TabPanel>
     </div>
   );
