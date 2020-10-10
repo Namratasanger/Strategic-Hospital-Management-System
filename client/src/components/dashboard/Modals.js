@@ -55,7 +55,7 @@ class Modals extends Component {
             </Form.Label>
             <Col sm='10'>
               <Form.Control
-                plaintext
+                
                 readOnly
                 defaultValue={typeof(data.name) === undefined ? "No data available" : data.name}
               />
@@ -66,7 +66,7 @@ class Modals extends Component {
               Since
             </Form.Label>
             <Col sm='10'>
-              {console.log(data.since)}
+              {console.log("data.from : ",data.from)}
               <Form.Control
                 plaintext
                 readOnly
@@ -95,6 +95,15 @@ class Modals extends Component {
               <Form.Control as='textarea' rows='3' readOnly defaultValue={!data.description?"Not available":data.description} />
             </Col>
           </Form.Group>
+          <Form.Group as={Row} controlId='formPlaintextEmail'>
+            <Form.Label column sm='1'>
+              Description
+            </Form.Label>
+            <Col sm='10'>
+              <Form.Control as='textarea' rows='3' defaultValue="Enter the prescription here" />
+            </Col>
+          </Form.Group>
+
           <Button variant='primary' onClick={this.handleShow}>
             Launch demo modal
           </Button>
