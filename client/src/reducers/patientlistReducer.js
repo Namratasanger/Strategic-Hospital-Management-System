@@ -1,4 +1,4 @@
-import { GET_PATIENT,GET_A_PATIENT ,PATIENT_ERRORS } from "../actions/types";
+import { GET_PATIENT,GET_A_PATIENT ,PATIENT_ERRORS,FREE_A_PATIENT } from "../actions/types";
 
 const initialState = {
   list: {},
@@ -23,6 +23,12 @@ export default function (state = initialState, action) {
         data:payload,
         loading:false
       }
+      case FREE_A_PATIENT:
+        return{
+          ...state,
+          data:payload,
+          loading:false
+        }
     case PATIENT_ERRORS:
       return {
         ...state,

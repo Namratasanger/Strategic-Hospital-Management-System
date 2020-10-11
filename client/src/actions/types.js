@@ -6,4 +6,5 @@ export const LIST_ERRORS = "LIST_ERRORS";
 export const GET_PATIENT = "GET_PATIENT";
 export const PATIENT_ERRORS = "PATIENT_ERRORS";
 export const GET_A_PATIENT = "GET_A_PATIENT";
+export const FREE_A_PATIENT = "FREE_A_PATIENT";
 

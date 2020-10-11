@@ -80,7 +80,7 @@ router.post("/all", (req, res) => {
 // @route   GET api/patient/id
 // @desc    List the patient by id
 // @access Public
-router.get("", async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     console.log(req.query)
     console.log(req.params.id)
@@ -111,7 +111,7 @@ router.delete("/:id",async(req,res)=>{
       return res.status(400).json({msg:"Patient not found."})
     }
     await Patient.findOneAndRemove({_id:req.params.id});
-    res.json({
+    return res.json({
       msg:"Patient removed"
     })
   } catch (err) {

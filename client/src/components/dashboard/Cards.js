@@ -34,7 +34,13 @@ const useCardStyles = theme => ({
 });
 class SimpleCard extends Component {
   componentDidMount() {
-    this.props.getPatientLists();
+    console.log(" cards component mounted")
+    setTimeout(()=>{
+      this.props.getPatientLists();
+    },500)
+  }
+  componentDidUnMount(){
+    console.log("cards unmounted")
   }
   render() {
     const { classes } = this.props;
@@ -73,37 +79,45 @@ class SimpleCard extends Component {
                 key={list[key]._id}
               >
                 <CardContent>
-                  <Typography variant='h4' component='h2'>
+                  <Typography variant='h4' component={'span'}>
                     {list[key].name}
                   </Typography>
-                  <Typography className={classes.pos}>
+                  <br/>
+                  <Typography className={classes.pos} component={'span'}>
                     Disease
+                    <br/>
                     <Typography
                       className={classes.title}
                       color='textSecondary'
                       gutterBottom
+                      component={'span'}
                     >
                       {list[key].disease}
                     </Typography>
+                    <br/>
                   </Typography>
 
-                  <Typography className={classes.pos}>
+                  <Typography className={classes.pos} component={'span'}>
                     Since
+                    <br/>
                     <Typography
                       className={classes.title}
                       color='textSecondary'
                       gutterBottom
+                      component={'span'}
                     >
                       {list[key].from}
                     </Typography>
                   </Typography>
-
-                  <Typography className={classes.pos}>
+                  <br/>
+                  <Typography className={classes.pos} component={'span'}>
                     Description
+                    <br/>
                     <Typography
                       className={classes.title}
                       color='textSecondary'
                       gutterBottom
+                      component={'span'}
                     >
                       {list[key].description}
                     </Typography>
@@ -116,9 +130,9 @@ class SimpleCard extends Component {
                     border: "1px solid rgb(197, 251, 237)",
                   }}
                 ></div>
-                <CardActions>
+                <CardActions >
                   <Link to={'/modal/'+list[key]._id}>
-                    <Button>Write Presctiption</Button>
+                  <Button variant="light">Write Presctiption</Button>
                   </Link>
                 </CardActions>
               </Card>

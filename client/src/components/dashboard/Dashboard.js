@@ -6,6 +6,9 @@ import { loginUser } from "../../actions/authActions";
 
 import Tabs from "./Tabs";
 class Dashboard extends Component {
+  componentDidMount(){
+    console.log("component mounted")
+  }
   render() {
     return (
       <div>

@@ -7,7 +7,7 @@ import Modal from "react-bootstrap/Modal";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { getAPatient,freePatientData } from "../../actions/patientlistActions";
+import { getPatientLists, getAPatient,freePatientData } from "../../actions/patientlistActions";
 import QRCode from "qrcode.react"
 
 class Modals extends Component {
@@ -15,7 +15,7 @@ class Modals extends Component {
     super(props);
     this.state = {
       show: false,
-      prescription:"",
+      prescription:"Enter the prescription here",
     };
     this.handleShow = this.handleShow.bind(this);
     this.handleClose = this.handleClose.bind(this);
@@ -38,13 +38,18 @@ class Modals extends Component {
       prescription : e.target.value
     })
   }
+  handleClick(id){
+    console.log("patient id :",id)
+    this.props.freePatientData(id)
+}
   componentDidMount() {
     console.log("component mounted")
     this.props.getAPatient(this.props.match.params.id);
   }
   componentWillUnmount(){
     console.log("component unmounted")
-    this.props.freePatientData();
+    this.props.getPatientLists()
+
   }
   render() {
 
@@ -107,7 +112,7 @@ class Modals extends Component {
               Prescription
             </Form.Label>
             <Col sm='10'>
-              <Form.Control as='textarea' rows='3' defaultValue="Enter the prescription here"
+              <Form.Control as='textarea' rows='3' 
               value={this.state.prescription} onChange={(e)=>this.handleChange(e)} />
             </Col>
           </Form.Group>
@@ -118,12 +123,12 @@ class Modals extends Component {
         </Form>
         <Modal show={this.state.show} onHide={this.handleClose}>
           <Modal.Header closeButton>
-            <Modal.Title>Modal heading</Modal.Title>
+            <Modal.Title>QR code</Modal.Title>
           </Modal.Header>
           <Modal.Body><QRCode value={this.state.prescription}/></Modal.Body>
           <Modal.Footer>
-            <Link to="/dasboard">
-            <Button variant='secondary' onClick={()=>alert("button clicked")}>
+            <Link to="/dashboard">
+            <Button variant='secondary' onClick = {()=>this.handleClick(data._id)}>
               Finish
             </Button>
             </Link>
@@ -135,11 +140,13 @@ class Modals extends Component {
 }
 
 Modals.propTypes = {
+  getPatientLists: PropTypes.func.isRequired,
   getAPatient: PropTypes.func.isRequired,
+  freePatientData: PropTypes.func.isRequired,
   patients: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = state => ({
   patients: state.patients,
 });
-export default   connect(mapStateToProps, { getAPatient,freePatientData })(Modals)
+export default   connect(mapStateToProps, { getAPatient,freePatientData,getPatientLists })(Modals)
