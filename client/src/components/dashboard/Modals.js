@@ -5,16 +5,17 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Modal from "react-bootstrap/Modal";
 import { Link } from "react-router-dom";
-
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { getAPatient,freePatientData } from "../../actions/patientlistActions";
+import QRCode from "qrcode.react"
 
 class Modals extends Component {
   constructor(props) {
     super(props);
     this.state = {
       show: false,
+      prescription:"",
     };
     this.handleShow = this.handleShow.bind(this);
     this.handleClose = this.handleClose.bind(this);
@@ -31,6 +32,12 @@ class Modals extends Component {
       show: false,
     });
   }
+  handleChange(e){
+    console.log(e.target.value)
+    this.setState({
+      prescription : e.target.value
+    })
+  }
   componentDidMount() {
     console.log("component mounted")
     this.props.getAPatient(this.props.match.params.id);
@@ -40,6 +47,7 @@ class Modals extends Component {
     this.props.freePatientData();
   }
   render() {
+
     const { data } = this.props.patients;
     return (
       <>
@@ -49,15 +57,15 @@ class Modals extends Component {
         </Link>
         {console.log("id : ",data)}
         <Form style={{ marginLeft: "2rem" }}>
-          <Form.Group as={Row} controlId='formPlaintextEmail'>
+        <Form.Group as={Row} controlId='formPlaintextEmail'>
             <Form.Label column sm='1'>
               Name
             </Form.Label>
             <Col sm='10'>
               <Form.Control
-                
+                plaintext
                 readOnly
-                defaultValue={typeof(data.name) === undefined ? "No data available" : data.name}
+                defaultValue={data.name }
               />
             </Col>
           </Form.Group>
@@ -66,7 +74,6 @@ class Modals extends Component {
               Since
             </Form.Label>
             <Col sm='10'>
-              {console.log("data.from : ",data.from)}
               <Form.Control
                 plaintext
                 readOnly
@@ -97,26 +104,29 @@ class Modals extends Component {
           </Form.Group>
           <Form.Group as={Row} controlId='formPlaintextEmail'>
             <Form.Label column sm='1'>
-              Description
+              Prescription
             </Form.Label>
             <Col sm='10'>
-              <Form.Control as='textarea' rows='3' defaultValue="Enter the prescription here" />
+              <Form.Control as='textarea' rows='3' defaultValue="Enter the prescription here"
+              value={this.state.prescription} onChange={(e)=>this.handleChange(e)} />
             </Col>
           </Form.Group>
 
           <Button variant='primary' onClick={this.handleShow}>
-            Launch demo modal
+            Generate QR code.
           </Button>
         </Form>
         <Modal show={this.state.show} onHide={this.handleClose}>
           <Modal.Header closeButton>
             <Modal.Title>Modal heading</Modal.Title>
           </Modal.Header>
-          <Modal.Body>QR code</Modal.Body>
+          <Modal.Body><QRCode value={this.state.prescription}/></Modal.Body>
           <Modal.Footer>
-            <Button variant='secondary' onClick={this.handleClose}>
-              Close
+            <Link to="/dasboard">
+            <Button variant='secondary' onClick={()=>alert("button clicked")}>
+              Finish
             </Button>
+            </Link>
           </Modal.Footer>
         </Modal>
       </>
