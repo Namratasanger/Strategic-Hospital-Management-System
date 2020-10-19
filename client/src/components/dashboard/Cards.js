@@ -70,8 +70,9 @@ class SimpleCard extends Component {
               <Card
                 className={classes.root}
                 style={{
-                  backgroundImage:
-                    "linear-gradient(180deg,rgb(12,194,146),rgb(13, 231, 160),rgb(24, 242, 180))",
+                  // backgroundImage:
+                  //   "linear-gradient(180deg,rgb(12,194,146),rgb(13, 231, 160),rgb(24, 242, 180))",
+                  backgroundColor:"#D5D5D5",
                   minWidth: 300,
                   maxWidth: 300,
                   margin: "10px 20px 10px 20px",
@@ -132,7 +133,9 @@ class SimpleCard extends Component {
                 ></div>
                 <CardActions >
                   <Link to={'/modal/'+list[key]._id}>
-                  <Button variant="light">Write Presctiption</Button>
+                    <div style={{border:"none",display:"flex",alignContent:"center"}}>
+                      <button style={{backgroundColor:"inherit",border:"none",textDecoration:"none"}}>Write Presctiption</button>
+                    </div>
                   </Link>
                 </CardActions>
               </Card>
